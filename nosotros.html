@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DelValleTours - Nosotros</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --primary: #0d6efd; --accent: #ff6b35; --dark: #0d1b2a; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #f8f9fa; }
+
+    .navbar { background: rgba(13,110,253,0.95); backdrop-filter: blur(8px); }
+    .navbar-brand { font-size: 1.6rem; font-weight: 700; color: #fff !important; font-family: 'Playfair Display', serif; }
+    .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
+    .nav-link:hover { color: #fff !important; }
+    .btn-reservar { background: var(--accent); color: #fff; border: none; border-radius: 25px; padding: 6px 20px; font-weight: 700; }
+    .btn-reservar:hover { background: #e55a27; color: #fff; }
+
+    .nosotros-hero {
+      background: linear-gradient(135deg, #0d6efd 0%, #0056b3 60%, #ff6b35 100%);
+      padding: 70px 0 90px; text-align: center; color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .nosotros-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=60') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .nosotros-hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; position: relative; z-index: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    .nosotros-hero p { font-size: 1.1rem; opacity: 0.9; position: relative; z-index: 1; margin-top: 10px; }
+
+    .nosotros-wrapper { max-width: 1100px; margin: -40px auto 60px; padding: 0 16px; position: relative; z-index: 10; }
+
+    .card-seccion {
+      background: #fff; border-radius: 24px; padding: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08); margin-bottom: 28px;
+      animation: slideUp 0.5s ease both;
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .section-sub { color: #6c757d; font-size: 0.9rem; margin-bottom: 28px; }
+
+    .nosotros-img-wrap { border-radius: 18px; overflow: hidden; box-shadow: 0 10px 32px rgba(0,0,0,0.12); position: relative; }
+    .nosotros-img-wrap img { width: 100%; height: 380px; object-fit: cover; display: block; }
+    .nosotros-img-badge { position: absolute; bottom: 16px; left: 16px; background: var(--accent); color: #fff; border-radius: 12px; padding: 8px 18px; font-weight: 700; font-size: 0.85rem; }
+    .historia-texto p { color: #495057; font-size: 0.97rem; line-height: 1.85; margin-bottom: 14px; }
+
+    .valor-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+    .valor-icono { width: 48px; height: 48px; border-radius: 12px; background: #e8f0fe; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .valor-icono.naranja { background: #fff0ea; color: var(--accent); }
+    .valor-icono.verde   { background: #e6f4ea; color: #28a745; }
+    .valor-icono.rojo    { background: #fdecea; color: #dc3545; }
+    .valor-texto h6 { font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .valor-texto p  { color: #6c757d; font-size: 0.85rem; margin: 0; line-height: 1.5; }
+
+    .mv-card { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); height: 100%; border-top: 4px solid var(--primary); transition: transform 0.3s; }
+    .mv-card:hover { transform: translateY(-4px); }
+    .mv-card.naranja { border-top-color: var(--accent); }
+    .mv-card.verde   { border-top-color: #28a745; }
+    .mv-card h5 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+    .mv-card p { color: #6c757d; font-size: 0.9rem; line-height: 1.7; margin: 0; }
+    .mv-card i { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+
+    footer { background: #0d1b2a; color: #adb5bd; }
+    footer h5 { color: #fff; font-weight: 700; font-family: 'Playfair Display', serif; }
+    footer a { color: #adb5bd; text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #1e3a5f; color: #6c757d; }
+
+    @media (max-width: 768px) {
+      .nosotros-hero h1 { font-size: 2rem; }
+      .card-seccion { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-mountain me-2"></i>DelValleTours
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+          <li class="nav-item"><a class="nav-link" href="index.html#destinos">Destinos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+          <li class="nav-item ms-2">
+            <a class="btn btn-reservar" href="reservas.html">Reservar ahora</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nosotros-hero">
+    <div class="container">
+      <h1><i class="fas fa-mountain me-2"></i>Sobre DelValleTours</h1>
+      <p>Conoce quiénes somos y por qué somos tu mejor opción en Santa Marta</p>
+    </div>
+  </div>
+
+  <div class="nosotros-wrapper">
+
+    <div class="card-seccion">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5">
+          <div class="nosotros-img-wrap">
+            <img src="https://images.unsplash.com/photo-1538821169352-a455f1f448b2?w=800&q=80" alt="Cabo San Juan"/>
+            <div class="nosotros-img-badge"><i class="fas fa-map-marker-alt me-2"></i>Santa Marta, Colombia</div>
+          </div>
+        </div>
+        <div class="col-lg-7 historia-texto">
+          <h2 class="section-title">¿Quiénes somos?</h2>
+          <p class="section-sub">Una empresa nacida del amor por el Caribe colombiano</p>
+          <p><strong>DelValleTours</strong> es una agencia de turismo con sede en Santa Marta, Colombia, especializada en crear experiencias únicas e inolvidables para cada viajero. Nacimos con la pasión de mostrar la riqueza natural y cultural del Caribe colombiano.</p>
+          <p>Ofrecemos planes a los destinos más hermosos de la región: desde las playas cristalinas de <strong>Cabo San Juan</strong> y <strong>Playa Blanca</strong>, hasta la magia de la Sierra Nevada en <strong>Minca</strong>, pasando por aventuras acuáticas en <strong>Taganga</strong>, <strong>Remanso</strong> y <strong>Playa Cristal</strong>.</p>
+          <p>Recuerda que debes llegar a Santa Marta para que podamos brindarte el servicio. Cada plan incluye transporte, guía profesional certificado y seguro de asistencia médica.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-seccion" style="animation-delay:0.1s;">
+      <h2 class="section-title">Nuestros valores</h2>
+      <p class="section-sub">Lo que nos hace diferentes</p>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="valor-item">
+            <div class="valor-icono"><i class="fas fa-shield-alt"></i></div>
+            <div class="valor-texto">
+              <h6>Seguridad garantizada</h6>
+              <p>Todos nuestros planes incluyen seguro de asistencia médica y guías profesionales certificados.</p>
+            </div>
+          </div>
+          <div class="valor-item">
+            <div class="valor-icono naranja"><i class="fas fa-heart"></i></div>
+            <div class="valor-texto">
+              <h6>Experiencias auténticas</h6>
+              <p>Conectamos a nuestros viajeros con la naturaleza y la cultura local de Santa Marta.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="valor-item">
+            <div class="valor-icono verde"><i class="fas fa-dollar-sign"></i></div>
+            <div class="valor-texto">
+              <h6>Precios accesibles</h6>
+              <p>Planes desde $100.000 para que todos puedan vivir la experiencia DelValleTours.</p>
+            </div>
+          </div>
+          <div class="valor-item">
+            <div class="valor-icono rojo"><i class="fas fa-leaf"></i></div>
+            <div class="valor-texto">
+              <h6>Turismo responsable</h6>
+              <p>Promovemos el respeto por los ecosistemas y comunidades locales en cada recorrido.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="mv-card">
+          <i class="fas fa-bullseye text-primary"></i>
+          <h5>Nuestra Misión</h5>
+          <p>Brindar experiencias de turismo seguras, accesibles y memorables en Santa Marta y sus alrededores, conectando a los viajeros con la naturaleza, la cultura y la biodiversidad del Caribe colombiano.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mv-card naranja">
+          <i class="fas fa-eye" style="color:var(--accent);"></i>
+          <h5>Nuestra Visión</h5>
+          <p>Ser la agencia de turismo líder en la región Caribe de Colombia, reconocida por la calidad de nuestros servicios, la profesionalidad de nuestro equipo y el compromiso con el turismo sostenible.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mv-card verde">
+          <i class="fas fa-handshake" style="color:#28a745;"></i>
+          <h5>Nuestro Compromiso</h5>
+          <p>Cada viajero es parte de nuestra familia. Nos comprometemos a ofrecer atención personalizada, transparencia en los precios y la mejor experiencia posible en cada recorrido.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <h5><i class="fas fa-mountain me-2"></i>DelValleTours</h5>
+          <p class="mt-2" style="font-size:0.9rem;">Tu agencia de confianza para turismo local en Santa Marta. Llega a la ciudad y nosotros nos encargamos del resto.</p>
+        </div>
+        <div class="col-md-2">
+          <h5>Compañía</h5>
+          <ul class="list-unstyled mt-2">
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="index.html#destinos">Destinos</a></li>
+            <li><a href="reservas.html">Reservas</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h5>Servicios</h5>
+          <ul class="list-unstyled mt-2">
+            <li><a href="#">Playas</a></li>
+            <li><a href="#">Naturaleza</a></li>
+            <li><a href="#">Aventura</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contacto</h5>
+          <ul class="list-unstyled mt-2">
+            <li><i class="fas fa-phone me-2 text-primary"></i>+57 322 8498191</li>
+            <li><i class="fas fa-envelope me-2 text-primary"></i>delvalletours14@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt me-2 text-primary"></i>Santa Marta, Magdalena</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center py-3">
+        <small>© 2026 DelValleTours. Todos los derechos reservados.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

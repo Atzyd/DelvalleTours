@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DelValleTours - Reservas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --primary: #0d6efd; --accent: #ff6b35; --dark: #0d1b2a; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #f0f4f8; min-height: 100vh; }
+
+    .navbar { background: rgba(13,110,253,0.95); backdrop-filter: blur(8px); }
+    .navbar-brand { font-size: 1.6rem; font-weight: 700; color: #fff !important; font-family: 'Playfair Display', serif; }
+    .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
+    .nav-link:hover { color: #fff !important; }
+
+    .reserva-hero {
+      background: linear-gradient(135deg, #0d6efd 0%, #0056b3 60%, #ff6b35 100%);
+      padding: 60px 0 80px; text-align: center; color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .reserva-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=60') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .reserva-hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; position: relative; z-index: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    .reserva-hero p { font-size: 1.1rem; opacity: 0.9; position: relative; z-index: 1; margin-top: 10px; }
+
+    .reserva-wrapper {
+      max-width: 1100px; margin: -40px auto 60px; padding: 0 16px;
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 28px;
+      position: relative; z-index: 10;
+    }
+    @media (max-width: 768px) {
+      .reserva-wrapper { grid-template-columns: 1fr; margin-top: -20px; }
+      .reserva-hero h1 { font-size: 2rem; }
+    }
+
+    .form-card { background: #fff; border-radius: 24px; padding: 36px 32px; box-shadow: 0 8px 40px rgba(0,0,0,0.10); animation: slideUp 0.5s ease both; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .form-card h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--dark); margin-bottom: 6px; }
+    .form-card .subtitulo { color: #6c757d; font-size: 0.9rem; margin-bottom: 28px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 700; font-size: 0.85rem; color: #495057; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .form-label i { color: var(--primary); font-size: 0.9rem; }
+
+    .form-control, .form-select { border: 1.5px solid #dee2e6; border-radius: 12px; padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13,110,253,0.12); outline: none; }
+    .form-control.is-invalid { border-color: #dc3545; }
+    .error-msg { font-size: 0.78rem; color: #dc3545; margin-top: 4px; display: none; }
+    .error-msg.visible { display: block; }
+
+    .btn-reservar-final {
+      background: linear-gradient(135deg, var(--accent), #e55a27);
+      color: #fff; border: none; border-radius: 14px; padding: 14px;
+      font-size: 1rem; font-weight: 700; width: 100%; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s; font-family: 'Nunito', sans-serif; margin-top: 8px;
+    }
+    .btn-reservar-final:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.35); }
+
+    .tabla-card { background: #fff; border-radius: 24px; padding: 36px 32px; box-shadow: 0 8px 40px rgba(0,0,0,0.10); animation: slideUp 0.5s 0.15s ease both; }
+    .tabla-card h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--dark); margin-bottom: 6px; }
+    .tabla-card .subtitulo { color: #6c757d; font-size: 0.9rem; margin-bottom: 24px; }
+
+    .tabla-reservas { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9rem; }
+    .tabla-reservas thead th { background: #f8f9fa; color: #495057; font-weight: 700; padding: 12px 16px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
+    .tabla-reservas thead th:first-child { border-radius: 10px 0 0 10px; }
+    .tabla-reservas thead th:last-child  { border-radius: 0 10px 10px 0; }
+    .tabla-reservas tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+    .tabla-reservas tbody tr:hover { background: #f8fbff; }
+    .tabla-reservas tbody td { padding: 14px 16px; color: #212529; vertical-align: middle; }
+
+    .btn-eliminar { background: #fff0ee; color: #dc3545; border: 1.5px solid #ffcdd2; border-radius: 8px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
+    .btn-eliminar:hover { background: #dc3545; color: #fff; }
+
+    .sin-reservas { text-align: center; padding: 40px 0; color: #adb5bd; }
+    .sin-reservas i { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+
+    .destino-badge { display: inline-flex; align-items: center; gap: 6px; background: #e8f0fe; color: var(--primary); border-radius: 20px; padding: 4px 14px; font-size: 0.82rem; font-weight: 700; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-mountain me-2"></i>DelValleTours
+      </a>
+    </div>
+  </nav>
+
+  <div class="reserva-hero">
+    <div class="container">
+      <h1><i class="fas fa-calendar-check me-2"></i>Reserva tu viaje</h1>
+      <p>Completa el formulario y asegura tu aventura</p>
+    </div>
+  </div>
+
+  <div class="reserva-wrapper">
+
+    <!-- Mensaje de éxito -->
+    <div id="mensajeExito" style="display:none;" class="col-12">
+      <div style="background: linear-gradient(135deg, #28a745, #1e7e34); color: #fff; border-radius: 16px; padding: 24px 28px; text-align: center; animation: slideUp 0.4s ease both; margin-bottom: 20px;">
+        <i class="fas fa-check-circle" style="font-size:2.5rem; margin-bottom:10px; display:block;"></i>
+        <h5 style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:6px;">¡Reserva confirmada!</h5>
+        <p style="opacity:0.9; margin:0; font-size:0.95rem;">Te enviamos un correo de confirmación. Recuerda que debes llegar a Santa Marta para que podamos brindarte el servicio. ¡Te esperamos! 🌴</p>
+      </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-card">
+      <h2>Nueva reserva</h2>
+      <p class="subtitulo">Todos los campos son obligatorios</p>
+
+      <div id="destinoBadge" style="display:none;">
+        <span class="destino-badge">
+          <i class="fas fa-map-marker-alt"></i>
+          <span id="destinoTexto"></span>
+        </span>
+      </div>
+
+      <form id="formReserva" novalidate>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-user"></i> Nombre completo</label>
+          <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez"/>
+          <div class="error-msg" id="error-nombre">Por favor ingresa tu nombre.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marker-alt"></i> Destino</label>
+          <input type="text" id="destino" class="form-control" placeholder="Ej: Cabo San Juan"/>
+          <div class="error-msg" id="error-destino">Por favor ingresa el destino.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico</label>
+          <input type="email" id="correo_cliente" class="form-control" placeholder="tucorreo@gmail.com"/>
+          <div class="error-msg" id="error-correo">Por favor ingresa tu correo.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-tag"></i> Valor del plan</label>
+          <input type="text" id="precio" class="form-control" placeholder="Ej: Desde $150.000" readonly style="background:#f8f9fa; font-weight:700; color:var(--accent);"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-calendar-alt"></i> Fecha de viaje</label>
+          <input type="date" id="fecha" class="form-control"/>
+          <div class="error-msg" id="error-fecha">Por favor selecciona una fecha.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-users"></i> Número de viajeros</label>
+          <select id="viajeros" class="form-select">
+            <option value="">Selecciona...</option>
+            <option value="1">1 persona</option>
+            <option value="2">2 personas</option>
+            <option value="3-4">3 - 4 personas</option>
+            <option value="5+">Grupo (+5)</option>
+          </select>
+          <div class="error-msg" id="error-viajeros">Por favor selecciona el número de viajeros.</div>
+        </div>
+
+        <button type="submit" class="btn-reservar-final">
+          <i class="fas fa-check-circle"></i> Confirmar reserva
+        </button>
+      </form>
+    </div>
+
+    <!-- TABLA -->
+    <div class="tabla-card">
+      <h2>Mis reservas</h2>
+      <p class="subtitulo">Historial de viajes reservados</p>
+      <table class="tabla-reservas">
+        <thead>
+          <tr>
+            <th><i class="fas fa-user me-1"></i> Nombre</th>
+            <th><i class="fas fa-map-marker-alt me-1"></i> Destino</th>
+            <th><i class="fas fa-calendar me-1"></i> Fecha</th>
+            <th><i class="fas fa-envelope me-1"></i> Correo</th>
+            <th><i class="fas fa-users me-1"></i> Viajeros</th>
+            <th><i class="fas fa-tag me-1"></i> Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tablaReservas"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>emailjs.init("lXb7XcDR5sXbfdnTU");</script>
+  <script src="reservas.js"></script>
+</body>
+</html>
