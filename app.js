@@ -72,6 +72,22 @@ const destinos = [
     imagen: "https://plus.unsplash.com/premium_photo-1664117187513-ef8d723a0a69?w=600&q=80",
     tag: "Rio y mar"
   },
+    {
+    nombre: "Playa blanca/Acuario , Colombia",
+    descripcion: "Transporte lancha, Entrada al acuario, Seguro de asistencia medica, almuerzo, entrada al acuario.",
+    precio: "Desde $135.000",
+    rating: 4.7,
+    imagen: "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=600&q=80",
+    tag: "Naturaleza"
+  },
+    {
+    nombre: "Chiva rumbera, Santa Marta, Colombia",
+    descripcion: "Tour por la ciudad de dos horas.",
+    precio: "Desde $20.000",
+    rating: 4.7,
+    imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
+    tag: "Naturaleza"
+  },
 ];
 
 const stats = [
