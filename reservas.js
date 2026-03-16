@@ -17,9 +17,29 @@ function preCargarDestino() {
   }
 
   if (precio) {
-    const valorPrecio = decodeURIComponent(precio);
-    document.getElementById("precio").value = valorPrecio;
+    document.getElementById("precio").dataset.base = precio;
+    actualizarTotal();
   }
+}
+
+// ── CALCULAR TOTAL SEGÚN VIAJEROS ────────────────────────────
+function actualizarTotal() {
+  const precioBase = parseInt(document.getElementById("precio").dataset.base) || 0;
+  const cantidad   = parseInt(document.getElementById("viajeros").value) || 0;
+
+  if (precioBase && cantidad > 0) {
+    const total = precioBase * cantidad;
+    document.getElementById("precio").value =
+      `${formatPrecio(precioBase)} x ${cantidad} = ${formatPrecio(total)}`;
+    document.getElementById("precio").dataset.total = total;
+  } else if (precioBase) {
+    document.getElementById("precio").value = `Desde ${formatPrecio(precioBase)} p/p`;
+    document.getElementById("precio").dataset.total = precioBase;
+  }
+}
+
+function formatPrecio(valor) {
+  return "$" + parseInt(valor).toLocaleString("es-CO");
 }
 // ────────────────────────────────────────────────────────────
 
@@ -177,3 +197,6 @@ function eliminarReserva(index) {
 // Inicializar
 preCargarDestino();
 mostrarReservas();
+
+// Actualizar total cuando cambian los viajeros
+document.getElementById("viajeros").addEventListener("input", actualizarTotal);

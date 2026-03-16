@@ -156,14 +156,8 @@
 
         <div class="form-group">
           <label class="form-label"><i class="fas fa-users"></i> Número de viajeros</label>
-          <select id="viajeros" class="form-select">
-            <option value="">Selecciona...</option>
-            <option value="1">1 persona</option>
-            <option value="2">2 personas</option>
-            <option value="3-4">3 - 4 personas</option>
-            <option value="5+">Grupo (+5)</option>
-          </select>
-          <div class="error-msg" id="error-viajeros">Por favor selecciona el número de viajeros.</div>
+          <input type="number" id="viajeros" class="form-control" placeholder="Ej: 6" min="1"/>
+          <div class="error-msg" id="error-viajeros">Por favor ingresa el número de viajeros.</div>
         </div>
 
         <button type="submit" class="btn-reservar-final">

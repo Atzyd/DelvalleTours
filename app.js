@@ -3,7 +3,7 @@ const destinos = [
   {
     nombre: "Cabo San Juan, Colombia",
     descripcion: "Transporte terrestre, entrada al Tayrona, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $150.000",
+    precio: 150000,
     rating: 4.9,
     imagen: "https://images.unsplash.com/photo-1538821169352-a455f1f448b2?w=600&q=80",
     tag: "Más vendido"
@@ -11,7 +11,7 @@ const destinos = [
   {
     nombre: "Palomino-Guajira, Colombia",
     descripcion: "Transporte terrestre, desayuno, almuerzo, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $110.000",
+    precio: 110000,
     rating: 4.8,
     imagen: "https://images.unsplash.com/photo-1708526499808-46793ea32022?w=600&q=80",
     tag: "Aventura"
@@ -19,7 +19,7 @@ const destinos = [
   {
     nombre: "Bahia Concha, Colombia",
     descripcion: "Transporte chiva, seguro de asistencia medica, almuerzo, guia profesional.",
-    precio: "Desde $100.000",
+    precio: 100000,
     rating: 4.9,
     imagen: "https://images.unsplash.com/photo-1595101445719-aaff4a444631?w=600&q=80",
     tag: "Playa"
@@ -27,7 +27,7 @@ const destinos = [
   {
     nombre: "Minca-Taganga, Colombia",
     descripcion: "Transporte terrestre, desayuno, almuerzo, seguro de asistencia medica, transporte lancha, guia profesional.",
-    precio: "Desde $120.000",
+    precio: 120000,
     rating: 4.7,
     imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
     tag: "Naturaleza"
@@ -35,7 +35,7 @@ const destinos = [
   {
     nombre: "Cartagena-Baru, Colombia",
     descripcion: "Transporte terrestre, desayuno, almuerzo, historia-playa, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $150.000",
+    precio: 150000,
     rating: 4.8,
     imagen: "https://images.unsplash.com/photo-1715503485391-e34011335c66?w=600&q=80",
     tag: "Top destino"
@@ -43,7 +43,7 @@ const destinos = [
   {
     nombre: "Playa Blanca, Colombia",
     descripcion: "Transporte lancha, Seguro de asistencia medica, almuerzo, entrada al acuario.",
-    precio: "Desde $134.000",
+    precio: 134000,
     rating: 4.6,
     imagen: "https://plus.unsplash.com/premium_photo-1683214474059-b57007fc4d49?w=600&q=80",
     tag: "Relax"
@@ -51,7 +51,7 @@ const destinos = [
   {
     nombre: "Remanso-Taganga, Colombia",
     descripcion: "Transporte terrestre, almuerzo, careteo mas fotos, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $100.000",
+    precio: 100000,
     rating: 4.8,
     imagen: "https://images.unsplash.com/photo-1549025227-2fd0b499aaae?w=600&q=80",
     tag: "Snorkel"
@@ -59,7 +59,7 @@ const destinos = [
   {
     nombre: "Playa Cristal, Colombia",
     descripcion: "Transporte terrestre, entrada al Tayrona, transporte maritimo, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $150.000",
+    precio: 150000,
     rating: 4.8,
     imagen: "https://plus.unsplash.com/premium_photo-1691675469394-f843e044e340?w=600&q=80",
     tag: "Playa"
@@ -67,23 +67,23 @@ const destinos = [
   {
     nombre: "Buritaca, Colombia",
     descripcion: "Transporte chiva, almuerzo, seguro de asistencia medica, guia profesional.",
-    precio: "Desde $110.000",
+    precio: 110000,
     rating: 4.8,
     imagen: "https://plus.unsplash.com/premium_photo-1664117187513-ef8d723a0a69?w=600&q=80",
     tag: "Rio y mar"
   },
-    {
-    nombre: "Playa blanca/Acuario , Colombia",
-    descripcion: "Transporte lancha, Entrada al acuario, Seguro de asistencia medica, almuerzo, entrada al acuario.",
-    precio: "Desde $135.000",
+  {
+    nombre: "Playa Blanca/Acuario, Colombia",
+    descripcion: "Transporte lancha, entrada al acuario, seguro de asistencia medica, almuerzo.",
+    precio: 135000,
     rating: 4.7,
     imagen: "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=600&q=80",
     tag: "Naturaleza"
   },
-    {
-    nombre: "Chiva rumbera, Santa Marta, Colombia",
+  {
+    nombre: "Chiva Rumbera, Santa Marta, Colombia",
     descripcion: "Tour por la ciudad de dos horas.",
-    precio: "Desde $20.000",
+    precio: 20000,
     rating: 4.7,
     imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
     tag: "Naturaleza"
@@ -96,6 +96,11 @@ const stats = [
   { icono: "fas fa-star", valor: "4.9/5", label: "Calificación promedio" },
   { icono: "fas fa-headset", valor: "24/7", label: "Soporte al cliente" }
 ];
+
+// Formato de peso colombiano
+function formatPrecio(valor) {
+  return "$" + valor.toLocaleString("es-CO");
+}
 
 function cargarHero() {
   const heroSection = document.getElementById("hero");
@@ -134,10 +139,10 @@ function renderDestinos(lista = destinos) {
           </div>
           <p class="text-muted" style="font-size:0.87rem;">${d.descripcion}</p>
           <div class="d-flex justify-content-between align-items-center mt-2">
-            <strong style="color:var(--accent);">${d.precio}</strong>
-            <button 
+            <strong style="color:var(--accent);">Desde ${formatPrecio(d.precio)} p/p</strong>
+            <button
               class="btn btn-sm btn-outline-primary rounded-pill"
-              onclick="irAReservar('${d.nombre}', '${d.precio}')">
+              onclick="irAReservar('${d.nombre}', ${d.precio})">
               Reservar <i class="fas fa-arrow-right ms-1"></i>
             </button>
           </div>
@@ -147,13 +152,12 @@ function renderDestinos(lista = destinos) {
   `).join("");
 }
 
-// ── BOTÓN RESERVAR — lleva a reservas.html con destino y precio prellenado ──
+// ── BOTÓN RESERVAR ───────────────────────────────────────────
 function irAReservar(nombreDestino, precio) {
   const destinoCodificado = encodeURIComponent(nombreDestino);
-  const precioCodificado  = encodeURIComponent(precio);
-  window.location.href = `reservas.html?destino=${destinoCodificado}&precio=${precioCodificado}`;
+  window.location.href = `reservas.html?destino=${destinoCodificado}&precio=${precio}`;
 }
-// ──────────────────────────────────────────────────────────────────
+// ────────────────────────────────────────────────────────────
 
 function renderStats() {
   const container = document.getElementById("stats-container");
@@ -192,10 +196,7 @@ function iniciarBuscador() {
 
 function filtrar(query) {
   const q = query.toLowerCase().trim();
-  if (!q) {
-    renderDestinos(destinos);
-    return;
-  }
+  if (!q) { renderDestinos(destinos); return; }
   const filtrados = destinos.filter(d =>
     d.nombre.toLowerCase().includes(q) ||
     d.descripcion.toLowerCase().includes(q) ||
@@ -210,5 +211,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDestinos();
   renderStats();
   iniciarBuscador();
-  console.log("✅ TurAventura cargado correctamente");
+  console.log("✅ DelValleTours cargado correctamente");
 });
