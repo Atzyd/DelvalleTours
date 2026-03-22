@@ -157,22 +157,22 @@ function renderDestinos(lista = destinos) {
   container.innerHTML = lista.map((d, i) => `
     <div class="col-sm-6 col-lg-4">
       <div class="destino-card">
-        <div style="position:relative; cursor:pointer;" onclick="abrirModal(${destinos.indexOf(d)})">
+        <div style="position:relative; cursor:pointer; overflow:hidden;" onclick="abrirModal(${destinos.indexOf(d)})">
           <img src="${d.imagen}" alt="${d.nombre}" loading="lazy"/>
-          <span class="badge-precio" style="position:absolute;top:12px;left:12px;">${d.tag}</span>
-          <span style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);color:#fff;border-radius:20px;padding:4px 10px;font-size:0.75rem;">
-            <i class="fas fa-info-circle me-1"></i>Ver más
+          <span class="badge-tag" style="position:absolute;top:14px;left:14px;">${d.tag}</span>
+          <span style="position:absolute;top:14px;right:14px;background:rgba(3,37,46,0.6);color:#fff;border-radius:20px;padding:4px 12px;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;">
+            <i class="fas fa-expand me-1"></i>Ver más
           </span>
         </div>
         <div class="destino-info">
-          <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex justify-content-between align-items-start mb-1">
             <h5>${d.nombre}</h5>
-            <span class="text-warning fw-bold"><i class="fas fa-star"></i> ${d.rating}</span>
+            <span style="color:#e9c46a; font-weight:700; font-size:0.85rem;"><i class="fas fa-star"></i> ${d.rating}</span>
           </div>
-          <p class="text-muted" style="font-size:0.87rem;">${d.descripcion}</p>
-          <div class="d-flex justify-content-between align-items-center mt-2">
-            <strong style="color:var(--accent);">Desde ${formatPrecio(d.precio)} p/p</strong>
-            <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="irAReservar('${d.nombre}', ${d.precio})">
+          <p class="text-muted" style="font-size:0.83rem; margin-bottom:14px;">${d.descripcion}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="precio-text">Desde ${formatPrecio(d.precio)} p/p</span>
+            <button class="btn-reservar-card" onclick="irAReservar('${d.nombre}', ${d.precio})">
               Reservar <i class="fas fa-arrow-right ms-1"></i>
             </button>
           </div>
@@ -227,44 +227,10 @@ function renderStats() {
   `).join("");
 }
 
-// ── BUSCADOR FUNCIONAL ───────────────────────────────────────
-function iniciarBuscador() {
-  const inputBuscar = document.querySelector('input[placeholder="¿A dónde vas?"]');
-  const btnBuscar   = document.querySelector('.search-bar .btn-primary');
-  if (!inputBuscar) return;
-
-  inputBuscar.addEventListener("input", () => {
-    filtrar(inputBuscar.value);
-    if (inputBuscar.value.trim()) {
-      document.getElementById("destinos").scrollIntoView({ behavior: "smooth" });
-    }
-  });
-
-  if (btnBuscar) {
-    btnBuscar.addEventListener("click", () => {
-      filtrar(inputBuscar.value);
-      document.getElementById("destinos").scrollIntoView({ behavior: "smooth" });
-    });
-  }
-}
-
-function filtrar(query) {
-  const q = query.toLowerCase().trim();
-  if (!q) { renderDestinos(destinos); return; }
-  const filtrados = destinos.filter(d =>
-    d.nombre.toLowerCase().includes(q) ||
-    d.descripcion.toLowerCase().includes(q) ||
-    d.tag.toLowerCase().includes(q)
-  );
-  renderDestinos(filtrados);
-}
-// ────────────────────────────────────────────────────────────
-
 document.addEventListener("DOMContentLoaded", () => {
   cargarHero();
   renderDestinos();
   renderStats();
-  iniciarBuscador();
 
   // Cerrar modal al hacer clic fuera
   document.getElementById("modalDestino").addEventListener("click", function(e) {
