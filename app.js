@@ -1,4 +1,4 @@
-// --- DATOS DE DESTINOS ----------
+//Destinos delvalletours.com
 const destinos = [
   {
     nombre: "Cabo San Juan, Colombia",
@@ -130,7 +130,6 @@ const stats = [
   { icono: "fas fa-headset", valor: "24/7", label: "Soporte al cliente" }
 ];
 
-// Formato de peso colombiano
 function formatPrecio(valor) {
   return "$" + valor.toLocaleString("es-CO");
 }
@@ -182,7 +181,6 @@ function renderDestinos(lista = destinos) {
   `).join("");
 }
 
-// ── MODAL DE DETALLE ─────────────────────────────────────────
 function abrirModal(index) {
   const d = destinos[index];
   document.getElementById("modalImg").src         = d.imagen;
@@ -206,14 +204,11 @@ function cerrarModal() {
   document.getElementById("modalDestino").style.display = "none";
   document.body.style.overflow = "";
 }
-// ────────────────────────────────────────────────────────────
 
-// ── BOTÓN RESERVAR ───────────────────────────────────────────
 function irAReservar(nombreDestino, precio) {
   const destinoCodificado = encodeURIComponent(nombreDestino);
   window.location.href = `reservas.html?destino=${destinoCodificado}&precio=${precio}`;
 }
-// ────────────────────────────────────────────────────────────
 
 function renderStats() {
   const container = document.getElementById("stats-container");
@@ -232,7 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDestinos();
   renderStats();
 
-  // Cerrar modal al hacer clic fuera
   document.getElementById("modalDestino").addEventListener("click", function(e) {
     if (e.target === this) cerrarModal();
   });

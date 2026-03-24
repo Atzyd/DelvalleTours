@@ -3,7 +3,6 @@ const tabla = document.getElementById("tablaReservas");
 
 let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
 
-// ── PRELLENAR DESTINO Y PRECIO DESDE LA URL ─────────────────
 function preCargarDestino() {
   const params  = new URLSearchParams(window.location.search);
   const destino = params.get("destino");
@@ -22,7 +21,6 @@ function preCargarDestino() {
   }
 }
 
-// ── CALCULAR TOTAL SEGÚN VIAJEROS ────────────────────────────
 function actualizarTotal() {
   const precioBase = parseInt(document.getElementById("precio").dataset.base) || 0;
   const cantidad   = parseInt(document.getElementById("viajeros").value) || 0;
@@ -41,9 +39,7 @@ function actualizarTotal() {
 function formatPrecio(valor) {
   return "$" + parseInt(valor).toLocaleString("es-CO");
 }
-// ────────────────────────────────────────────────────────────
 
-// ── VALIDACIONES ─────────────────────────────────────────────
 function validarCampo(id, errorId) {
   const campo = document.getElementById(id);
   const error = document.getElementById(errorId);
@@ -54,7 +50,6 @@ function validarCampo(id, errorId) {
     return false;
   }
 
-  // Validación especial para correo
   if (id === "correo_cliente") {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(campo.value.trim())) {
@@ -76,9 +71,7 @@ function limpiarErrores() {
   });
   document.querySelectorAll(".error-msg").forEach(e => e.classList.remove("visible"));
 }
-// ────────────────────────────────────────────────────────────
 
-// ── MOSTRAR TABLA ─────────────────────────────────────────────
 function mostrarReservas() {
   tabla.innerHTML = "";
 
@@ -112,9 +105,7 @@ function mostrarReservas() {
       </tr>`;
   });
 }
-// ────────────────────────────────────────────────────────────
 
-// ── SUBMIT ───────────────────────────────────────────────────
 form.addEventListener("submit", function(e) {
   e.preventDefault();
   limpiarErrores();
@@ -136,12 +127,11 @@ form.addEventListener("submit", function(e) {
     precio:         document.getElementById("precio").value
   };
 
-  // Guardar en localStorage
   reservas.push(nueva);
   localStorage.setItem("reservas", JSON.stringify(reservas));
   mostrarReservas();
 
-  // Enviar correo con EmailJS
+  //Enviar correo con la API de Emailjs 
   const btn = document.querySelector(".btn-reservar-final");
   btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
   btn.disabled = true;
@@ -162,7 +152,6 @@ form.addEventListener("submit", function(e) {
     limpiarErrores();
     document.getElementById("destinoBadge").style.display = "none";
 
-    // Mostrar mensaje de éxito
     const mensajeExito = document.getElementById("mensajeExito");
     mensajeExito.style.display = "block";
     mensajeExito.scrollIntoView({ behavior: "smooth" });
@@ -181,9 +170,7 @@ form.addEventListener("submit", function(e) {
     }, 3000);
   });
 });
-// ────────────────────────────────────────────────────────────
 
-// ── ELIMINAR ─────────────────────────────────────────────────
 function eliminarReserva(index) {
   const confirmar = confirm("¿Seguro que deseas eliminar esta reserva?");
   if (!confirmar) return;
@@ -192,11 +179,8 @@ function eliminarReserva(index) {
   localStorage.setItem("reservas", JSON.stringify(reservas));
   mostrarReservas();
 }
-// ────────────────────────────────────────────────────────────
 
-// Inicializar
 preCargarDestino();
 mostrarReservas();
 
-// Actualizar total cuando cambian los viajeros
 document.getElementById("viajeros").addEventListener("input", actualizarTotal);
