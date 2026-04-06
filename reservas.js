@@ -1,5 +1,5 @@
 // ── IMPORTAR FIREBASE ────────────────────────────────────────
-import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query } from "./firebase.js";
+import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "./firebase.js";
 
 const form  = document.getElementById("formReserva");
 const tabla = document.getElementById("tablaReservas");
@@ -208,6 +208,68 @@ form.addEventListener("submit", async function(e) {
     }, 3000);
   }
 });
+
+// ── TABS ─────────────────────────────────────────────────────
+window.cambiarTab = function(tab) {
+  document.getElementById("panelNueva").style.display    = tab === "nueva"    ? "block" : "none";
+  document.getElementById("panelConsulta").style.display = tab === "consulta" ? "block" : "none";
+  document.getElementById("tabNueva").classList.toggle("active",    tab === "nueva");
+  document.getElementById("tabConsulta").classList.toggle("active", tab === "consulta");
+};
+
+// ── CONSULTA POR CORREO ───────────────────────────────────────
+window.consultarPorCorreo = async function() {
+  const correo = document.getElementById("correoConsulta").value.trim();
+  const resultado = document.getElementById("resultadoConsulta");
+
+  if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    resultado.innerHTML = `<p style="color:var(--coral); font-size:0.85rem;">Por favor ingresa un correo válido.</p>`;
+    return;
+  }
+
+  resultado.innerHTML = `<p style="color:#888; font-size:0.85rem;"><i class="fas fa-spinner fa-spin me-2"></i>Buscando...</p>`;
+
+  try {
+    const q = query(collection(db, "reservas"), where("correo_cliente", "==", correo));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      resultado.innerHTML = `
+        <div style="text-align:center; padding:32px; color:#aaa;">
+          <i class="fas fa-inbox fa-2x" style="color:var(--teal); opacity:0.4; display:block; margin-bottom:12px;"></i>
+          <p style="font-size:0.85rem; letter-spacing:1px;">No encontramos reservas con ese correo.</p>
+        </div>`;
+      return;
+    }
+
+    let html = `<div style="overflow-x:auto;"><table class="tabla-reservas"><thead><tr>
+      <th>Destino</th><th>Fecha</th><th>Viajeros</th><th>Valor</th><th>Estado</th>
+    </tr></thead><tbody>`;
+
+    snapshot.forEach(d => {
+      const r = d.data();
+      html += `<tr>
+        <td><strong>${r.destino}</strong></td>
+        <td>${r.fecha || "—"}</td>
+        <td style="text-align:center;">${r.viajeros || "—"}</td>
+        <td style="color:var(--coral); font-weight:700;">${r.precio || "—"}</td>
+        <td><span style="background:#e8f7f7; color:var(--teal); border-radius:20px; padding:3px 12px; font-size:0.75rem; font-weight:700; letter-spacing:1px;">CONFIRMADA</span></td>
+      </tr>`;
+    });
+
+    html += `</tbody></table></div>
+      <p style="font-size:0.78rem; color:#aaa; margin-top:12px; letter-spacing:1px;">
+        <i class="fas fa-info-circle me-1"></i> Se encontraron ${snapshot.size} reserva(s) para ${correo}
+      </p>`;
+
+    resultado.innerHTML = html;
+
+  } catch (err) {
+    console.error(err);
+    resultado.innerHTML = `<p style="color:var(--coral); font-size:0.85rem;"><i class="fas fa-exclamation-triangle me-2"></i>Error al consultar. Intenta de nuevo.</p>`;
+  }
+};
+// ────────────────────────────────────────────────────────────
 
 // ── INICIALIZAR ───────────────────────────────────────────────
 preCargarDestino();
