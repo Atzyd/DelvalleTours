@@ -1,6 +1,17 @@
 //Destinos delvalletours.com
 const destinos = [
   {
+    nombre: "Chiva Rumbera, Santa Marta, Colombia",
+    descripcion: "Tour por la ciudad de dos horas.",
+    detalle: "Recorrido de 2 horas por los puntos icónicos de Santa Marta en una auténtica Chiva tradicional. Música en vivo, ambiente festivo y parada técnica en Vibras Bar para disfrutar de tragos y el ambiente local. Perfecto para grupos y celebraciones especiales.",
+    precio: 20000,
+    rating: 4.7,
+    imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
+    tag: "Ciudad",
+    duracion: "2 horas",
+    puntoEncuentro: "Parqueadero Santa Marta DelValleTours"
+  },
+  {
     nombre: "Cabo San Juan, Colombia",
     descripcion: "Transporte terrestre, entrada al Tayrona, seguro de asistencia medica, guia profesional.",
     detalle: "Senderismo guiado por senderos espectaculares con entrada al parque incluida. Disfruta de las playas más hermosas de Tayrona con vistas panorámicas únicas.",
@@ -110,17 +121,7 @@ const destinos = [
     duracion: "Día completo",
     puntoEncuentro: "Santa Marta Rodadero"
   },
-  {
-    nombre: "Chiva Rumbera, Santa Marta, Colombia",
-    descripcion: "Tour por la ciudad de dos horas.",
-    detalle: "Recorrido de 2 horas por los puntos icónicos de Santa Marta en una auténtica Chiva tradicional. Música en vivo, ambiente festivo y parada técnica en Vibras Bar para disfrutar de tragos y el ambiente local. Perfecto para grupos y celebraciones especiales.",
-    precio: 20000,
-    rating: 4.7,
-    imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
-    tag: "Ciudad",
-    duracion: "2 horas",
-    puntoEncuentro: "Parqueadero Santa Marta DelValleTours"
-  },
+  
 ];
 
 const stats = [
