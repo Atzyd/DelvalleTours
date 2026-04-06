@@ -9,7 +9,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1538821169352-a455f1f448b2?w=600&q=80",
     tag: "Más vendido",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Palomino-Guajira, Colombia",
@@ -20,7 +20,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1708526499808-46793ea32022?w=600&q=80",
     tag: "Aventura",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Bahia Concha, Colombia",
@@ -31,7 +31,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1595101445719-aaff4a444631?w=600&q=80",
     tag: "Playa",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Minca-Taganga, Colombia",
@@ -42,7 +42,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
     tag: "Naturaleza",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Cartagena-Baru, Colombia",
@@ -53,7 +53,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1715503485391-e34011335c66?w=600&q=80",
     tag: "Top destino",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Playa Blanca, Colombia",
@@ -64,7 +64,7 @@ const destinos = [
     imagen: "https://plus.unsplash.com/premium_photo-1683214474059-b57007fc4d49?w=600&q=80",
     tag: "Relax",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Remanso-Taganga, Colombia",
@@ -75,7 +75,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1549025227-2fd0b499aaae?w=600&q=80",
     tag: "Snorkel",
     duracion: "Medio día",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Playa Cristal, Colombia",
@@ -86,7 +86,7 @@ const destinos = [
     imagen: "https://plus.unsplash.com/premium_photo-1691675469394-f843e044e340?w=600&q=80",
     tag: "Playa",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Buritaca, Colombia",
@@ -97,7 +97,7 @@ const destinos = [
     imagen: "https://plus.unsplash.com/premium_photo-1664117187513-ef8d723a0a69?w=600&q=80",
     tag: "Rio y mar",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Playa Blanca/Acuario, Colombia",
@@ -108,7 +108,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=600&q=80",
     tag: "Naturaleza",
     duracion: "Día completo",
-    puntoEncuentro: "Santa Marta centro"
+    puntoEncuentro: "Santa Marta Rodadero"
   },
   {
     nombre: "Chiva Rumbera, Santa Marta, Colombia",
@@ -119,7 +119,7 @@ const destinos = [
     imagen: "https://images.unsplash.com/photo-1708716175154-32344ec0868a?w=600&q=80",
     tag: "Ciudad",
     duracion: "2 horas",
-    puntoEncuentro: "Vibras Bar, Santa Marta"
+    puntoEncuentro: "Parqueadero Santa Marta DelValleTours"
   },
 ];
 
