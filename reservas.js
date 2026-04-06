@@ -1,5 +1,5 @@
 // ── IMPORTAR FIREBASE ────────────────────────────────────────
-import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "./firebase.js";
+import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "./Firebase.js";
 
 const form  = document.getElementById("formReserva");
 const tabla = document.getElementById("tablaReservas");
