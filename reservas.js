@@ -1,5 +1,5 @@
 // ── IMPORTAR FIREBASE ────────────────────────────────────────
-import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "./Firebase.js";
+import { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "./firebase.js";
 
 const form  = document.getElementById("formReserva");
 const tabla = document.getElementById("tablaReservas");
@@ -12,7 +12,14 @@ function preCargarDestino() {
 
   if (destino) {
     const valorDestino = decodeURIComponent(destino);
-    document.getElementById("destino").value = valorDestino;
+    const select = document.getElementById("destino");
+    // Buscar la opción que coincida
+    for (let opt of select.options) {
+      if (opt.value === valorDestino) {
+        opt.selected = true;
+        break;
+      }
+    }
     document.getElementById("destinoTexto").textContent = valorDestino;
     document.getElementById("destinoBadge").style.display = "block";
   }
@@ -21,6 +28,25 @@ function preCargarDestino() {
     document.getElementById("precio").dataset.base = precio;
     actualizarTotal();
   }
+}
+
+// ── CAMBIO DE DESTINO ACTUALIZA PRECIO ───────────────────────
+function iniciarSelectorDestino() {
+  const select = document.getElementById("destino");
+  select.addEventListener("change", function() {
+    const opcion = this.options[this.selectedIndex];
+    const precio = opcion.dataset.precio;
+    if (precio) {
+      document.getElementById("precio").dataset.base = precio;
+      document.getElementById("destinoTexto").textContent = opcion.value;
+      document.getElementById("destinoBadge").style.display = "block";
+      actualizarTotal();
+    } else {
+      document.getElementById("precio").value = "";
+      document.getElementById("precio").dataset.base = "";
+      document.getElementById("destinoBadge").style.display = "none";
+    }
+  });
 }
 
 // ── CALCULAR TOTAL ───────────────────────────────────────────
@@ -59,6 +85,26 @@ function validarCampo(id, errorId) {
     if (!emailRegex.test(campo.value.trim())) {
       campo.classList.add("is-invalid");
       error.textContent = "Por favor ingresa un correo válido.";
+      error.classList.add("visible");
+      return false;
+    }
+  }
+
+  if (id === "fecha") {
+    const hoy = new Date().toISOString().split("T")[0];
+    if (campo.value < hoy) {
+      campo.classList.add("is-invalid");
+      error.textContent = "La fecha no puede ser en el pasado.";
+      error.classList.add("visible");
+      return false;
+    }
+  }
+
+  if (id === "viajeros") {
+    const num = parseInt(campo.value);
+    if (isNaN(num) || num < 1) {
+      campo.classList.add("is-invalid");
+      error.textContent = "El número de viajeros debe ser mayor a 0.";
       error.classList.add("visible");
       return false;
     }
@@ -223,11 +269,11 @@ window.consultarPorCorreo = async function() {
   const resultado = document.getElementById("resultadoConsulta");
 
   if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-    resultado.innerHTML = `<p style="color:var(--coral); font-size:0.85rem;">Por favor ingresa un correo válido.</p>`;
+    resultado.innerHTML = `<p style="color:var(--coral);font-size:0.82rem;"><i class="fas fa-exclamation-circle me-1"></i>Por favor ingresa un correo válido.</p>`;
     return;
   }
 
-  resultado.innerHTML = `<p style="color:#888; font-size:0.85rem;"><i class="fas fa-spinner fa-spin me-2"></i>Buscando...</p>`;
+  resultado.innerHTML = `<p style="color:#888;font-size:0.82rem;"><i class="fas fa-spinner fa-spin me-2"></i>Buscando...</p>`;
 
   try {
     const q = query(collection(db, "reservas"), where("correo_cliente", "==", correo));
@@ -235,43 +281,47 @@ window.consultarPorCorreo = async function() {
 
     if (snapshot.empty) {
       resultado.innerHTML = `
-        <div style="text-align:center; padding:32px; color:#aaa;">
-          <i class="fas fa-inbox fa-2x" style="color:var(--teal); opacity:0.4; display:block; margin-bottom:12px;"></i>
-          <p style="font-size:0.85rem; letter-spacing:1px;">No encontramos reservas con ese correo.</p>
+        <div style="text-align:center;padding:32px;color:#aaa;">
+          <i class="fas fa-inbox fa-2x" style="color:var(--teal);opacity:0.4;display:block;margin-bottom:12px;"></i>
+          <p style="font-size:0.82rem;letter-spacing:1px;">No encontramos reservas con ese correo.</p>
         </div>`;
       return;
     }
 
-    let html = `<div style="overflow-x:auto;"><table class="tabla-reservas"><thead><tr>
-      <th>Destino</th><th>Fecha</th><th>Viajeros</th><th>Valor</th><th>Estado</th>
-    </tr></thead><tbody>`;
+    let html = `<p style="font-size:0.75rem;color:#aaa;letter-spacing:1px;margin-bottom:14px;">
+      <i class="fas fa-check-circle me-1" style="color:var(--teal);"></i>
+      ${snapshot.size} reserva(s) encontrada(s) para <strong>${correo}</strong>
+    </p>`;
 
     snapshot.forEach(d => {
       const r = d.data();
-      html += `<tr>
-        <td><strong>${r.destino}</strong></td>
-        <td>${r.fecha || "—"}</td>
-        <td style="text-align:center;">${r.viajeros || "—"}</td>
-        <td style="color:var(--coral); font-weight:700;">${r.precio || "—"}</td>
-        <td><span style="background:#e8f7f7; color:var(--teal); border-radius:20px; padding:3px 12px; font-size:0.75rem; font-weight:700; letter-spacing:1px;">CONFIRMADA</span></td>
-      </tr>`;
+      html += `
+        <div class="reserva-result-card">
+          <h6><i class="fas fa-map-marker-alt me-2" style="color:var(--teal);"></i>${r.destino}</h6>
+          <div class="info-row">
+            <span><i class="fas fa-calendar me-1"></i>${r.fecha || "—"}</span>
+            <span><i class="fas fa-users me-1"></i>${r.viajeros || "—"} viajero(s)</span>
+            <span class="precio-badge"><i class="fas fa-tag me-1"></i>${r.precio || "—"}</span>
+            <span class="estado-badge">CONFIRMADA</span>
+          </div>
+        </div>`;
     });
-
-    html += `</tbody></table></div>
-      <p style="font-size:0.78rem; color:#aaa; margin-top:12px; letter-spacing:1px;">
-        <i class="fas fa-info-circle me-1"></i> Se encontraron ${snapshot.size} reserva(s) para ${correo}
-      </p>`;
 
     resultado.innerHTML = html;
 
   } catch (err) {
     console.error(err);
-    resultado.innerHTML = `<p style="color:var(--coral); font-size:0.85rem;"><i class="fas fa-exclamation-triangle me-2"></i>Error al consultar. Intenta de nuevo.</p>`;
+    resultado.innerHTML = `<p style="color:var(--coral);font-size:0.82rem;"><i class="fas fa-exclamation-triangle me-2"></i>Error al consultar. Intenta de nuevo.</p>`;
   }
 };
 // ────────────────────────────────────────────────────────────
 
 // ── INICIALIZAR ───────────────────────────────────────────────
 preCargarDestino();
+iniciarSelectorDestino();
 mostrarReservas();
 document.getElementById("viajeros").addEventListener("input", actualizarTotal);
+
+// ── BLOQUEAR FECHAS PASADAS ───────────────────────────────────
+const hoy = new Date().toISOString().split("T")[0];
+document.getElementById("fecha").setAttribute("min", hoy);

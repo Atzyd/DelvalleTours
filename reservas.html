@@ -14,7 +14,6 @@
       --sand:  #e9c46a;
       --coral: #e76f51;
       --dark:  #03252e;
-      --leaf:  #2d6a4f;
       --cream: #faf7f0;
     }
 
@@ -23,15 +22,15 @@
 
     /* NAVBAR */
     .navbar { background: rgba(3,37,46,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,180,216,0.2); padding: 14px 0; }
-    .navbar-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: #fff !important; letter-spacing: 1px; }
+    .navbar-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: #fff !important; letter-spacing: 1px; }
     .navbar-brand span { color: var(--sand); }
-    .nav-link { color: rgba(255,255,255,0.8) !important; font-weight: 600; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; }
+    .nav-link { color: rgba(255,255,255,0.8) !important; font-weight: 600; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; }
     .nav-link:hover { color: var(--sand) !important; }
 
     /* HERO */
     .reserva-hero {
       background: linear-gradient(135deg, var(--dark) 0%, #0a4a5a 60%, var(--teal) 100%);
-      padding: 80px 0 100px; text-align: center; color: #fff;
+      padding: 60px 0 80px; text-align: center; color: #fff;
       position: relative; overflow: hidden;
     }
     .reserva-hero::before {
@@ -39,43 +38,74 @@
       background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=60') center/cover;
       opacity: 0.1;
     }
-    .hero-eyebrow { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--sand); display: block; margin-bottom: 8px; position: relative; z-index: 1; }
-    .reserva-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 700; position: relative; z-index: 1; }
-    .reserva-hero p { font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.65; position: relative; z-index: 1; margin-top: 10px; }
+    .hero-eyebrow { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: var(--sand); display: block; margin-bottom: 6px; position: relative; z-index: 1; }
+    .reserva-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 700; position: relative; z-index: 1; }
+    .reserva-hero p { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.65; position: relative; z-index: 1; margin-top: 8px; }
+
+    @media (max-width: 576px) {
+      .reserva-hero { padding: 50px 0 70px; }
+      .reserva-hero h1 { font-size: 2rem; }
+      .hero-eyebrow { font-size: 1.3rem; }
+    }
 
     /* WAVE */
     .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
 
-    /* LAYOUT */
+    /* LAYOUT — columna única en móvil */
     .reserva-wrapper {
-      max-width: 1100px; margin: -40px auto 60px; padding: 0 16px;
-      display: grid; grid-template-columns: 1fr 1.1fr; gap: 28px;
-      position: relative; z-index: 10;
-    }
-    @media (max-width: 768px) {
-      .reserva-wrapper { grid-template-columns: 1fr; margin-top: -20px; }
-      .reserva-hero h1 { font-size: 2.2rem; }
+      max-width: 760px;
+      margin: -40px auto 60px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    /* FORM CARD */
-    .form-card {
-      background: #fff; border-radius: 24px; padding: 38px 34px;
+    /* TABS */
+    .tabs-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--cream); color: #888; border: 1.5px solid #e0e0e0;
+      border-radius: 30px; padding: 9px 18px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+      flex: 1; min-width: 140px; text-align: center;
+    }
+    .tab-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .tab-btn:hover:not(.active) { border-color: var(--teal); color: var(--teal); }
+
+    /* CARDS */
+    .form-card, .consulta-card {
+      background: #fff; border-radius: 22px;
+      padding: 32px 28px;
       box-shadow: 0 8px 40px rgba(3,37,46,0.10);
       animation: slideUp 0.5s ease both;
     }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 576px) {
+      .form-card, .consulta-card { padding: 24px 18px; border-radius: 18px; }
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-    .form-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: var(--dark); margin-bottom: 4px; }
-    .form-card .subtitulo { color: #888; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
+    .form-card h2, .consulta-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--dark); margin-bottom: 4px; }
+    .subtitulo { color: #888; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
 
-    .form-group { margin-bottom: 20px; }
-    .form-label { font-weight: 700; font-size: 0.78rem; color: #555; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    /* FORM */
+    .form-group { margin-bottom: 18px; }
+    .form-label { font-weight: 700; font-size: 0.75rem; color: #555; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; text-transform: uppercase; }
     .form-label i { color: var(--teal); }
 
     .form-control, .form-select {
-      border: 1.5px solid #e0e0e0; border-radius: 12px; padding: 12px 16px;
-      font-family: 'Josefin Sans', sans-serif; font-size: 0.92rem;
-      transition: border-color 0.2s, box-shadow 0.2s; background: var(--cream);
+      border: 1.5px solid #e0e0e0; border-radius: 12px;
+      padding: 12px 14px; font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.9rem; transition: border-color 0.2s, box-shadow 0.2s;
+      background: var(--cream); width: 100%;
     }
     .form-control:focus, .form-select:focus {
       border-color: var(--teal); box-shadow: 0 0 0 3px rgba(10,147,150,0.12); outline: none;
@@ -86,8 +116,8 @@
 
     .btn-reservar-final {
       background: linear-gradient(135deg, var(--teal), #005f73);
-      color: #fff; border: none; border-radius: 14px; padding: 15px;
-      font-size: 0.85rem; font-weight: 700; width: 100%; cursor: pointer;
+      color: #fff; border: none; border-radius: 14px; padding: 14px;
+      font-size: 0.82rem; font-weight: 700; width: 100%; cursor: pointer;
       font-family: 'Josefin Sans', sans-serif; letter-spacing: 2px;
       text-transform: uppercase; transition: transform 0.2s, box-shadow 0.2s; margin-top: 8px;
     }
@@ -96,66 +126,50 @@
     .destino-badge {
       display: inline-flex; align-items: center; gap: 6px;
       background: #e8f7f7; color: var(--teal);
-      border-radius: 20px; padding: 5px 16px;
-      font-size: 0.78rem; font-weight: 700; margin-bottom: 20px;
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 0.75rem; font-weight: 700; margin-bottom: 18px;
       letter-spacing: 1px; text-transform: uppercase;
     }
 
-    /* TABS */
-    .tab-btn {
-      background: var(--cream); color: #888; border: 1.5px solid #e0e0e0;
-      border-radius: 30px; padding: 9px 20px; font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.2s;
+    /* CONSULTA */
+    .consulta-input-wrap {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
     }
-    .tab-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
-    .tab-btn:hover:not(.active) { border-color: var(--teal); color: var(--teal); }
-
-    /* TABLA CARD */
-    .tabla-card {
-      background: #fff; border-radius: 24px; padding: 38px 34px;
-      box-shadow: 0 8px 40px rgba(3,37,46,0.10);
-      animation: slideUp 0.5s 0.15s ease both;
+    .consulta-input-wrap input {
+      flex: 1; min-width: 200px;
     }
-    .tabla-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: var(--dark); margin-bottom: 4px; }
-    .tabla-card .subtitulo { color: #888; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
-
-    .tabla-reservas { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.83rem; }
-    .tabla-reservas thead th {
-      background: var(--cream); color: #666; font-weight: 700;
-      padding: 12px 14px; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 1px;
+    .btn-buscar {
+      background: linear-gradient(135deg, var(--teal), #005f73);
+      color: #fff; border: none; border-radius: 12px;
+      padding: 12px 20px; font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer; white-space: nowrap;
     }
-    .tabla-reservas thead th:first-child { border-radius: 10px 0 0 10px; }
-    .tabla-reservas thead th:last-child  { border-radius: 0 10px 10px 0; }
-    .tabla-reservas tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
-    .tabla-reservas tbody tr:hover { background: #f0fafa; }
-    .tabla-reservas tbody td { padding: 13px 14px; color: var(--dark); vertical-align: middle; }
 
-    .btn-eliminar {
-      background: #fdecea; color: var(--coral); border: 1.5px solid #f5c0b8;
-      border-radius: 8px; padding: 5px 14px; font-size: 0.75rem; font-weight: 700;
-      cursor: pointer; transition: background 0.2s; font-family: 'Josefin Sans', sans-serif;
-      letter-spacing: 1px; text-transform: uppercase;
+    /* RESERVA CARD (resultado consulta) */
+    .reserva-result-card {
+      background: var(--cream); border-radius: 14px;
+      padding: 18px 20px; margin-bottom: 12px;
+      border-left: 4px solid var(--teal);
     }
-    .btn-eliminar:hover { background: var(--coral); color: #fff; }
-
-    .sin-reservas { text-align: center; padding: 48px 0; color: #bbb; }
-    .sin-reservas i { font-size: 2.5rem; margin-bottom: 14px; display: block; color: var(--teal); opacity: 0.4; }
-    .sin-reservas p { font-size: 0.85rem; letter-spacing: 1px; }
+    .reserva-result-card h6 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--dark); margin-bottom: 8px; }
+    .reserva-result-card .info-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; color: #555; }
+    .reserva-result-card .precio-badge { color: var(--coral); font-weight: 700; }
+    .reserva-result-card .estado-badge { background: #e8f7f7; color: var(--teal); border-radius: 20px; padding: 3px 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; }
 
     /* MENSAJE ÉXITO */
     #mensajeExito { display: none; }
 
     /* WHATSAPP */
     #btnWhatsapp {
-      position: fixed; bottom: 28px; right: 28px;
-      width: 62px; height: 62px; background: #25d366; color: #fff;
+      position: fixed; bottom: 24px; right: 24px;
+      width: 58px; height: 58px; background: #25d366; color: #fff;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 1.9rem; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      font-size: 1.8rem; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
       z-index: 9998; text-decoration: none; transition: transform 0.2s;
       animation: pulseWa 2s infinite;
     }
-    #btnWhatsapp:hover { transform: scale(1.12); color: #fff; }
+    #btnWhatsapp:hover { transform: scale(1.1); color: #fff; }
     @keyframes pulseWa {
       0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.55); }
       70%  { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
@@ -163,13 +177,13 @@
     }
 
     /* FOOTER */
-    footer { background: var(--dark); color: rgba(255,255,255,0.6); padding-top: 60px; }
-    footer h5 { font-family: 'Cormorant Garamond', serif; color: #fff; font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; }
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; font-size: 0.9rem; }
+    footer { background: var(--dark); color: rgba(255,255,255,0.6); padding-top: 50px; }
+    footer h5 { font-family: 'Cormorant Garamond', serif; color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 14px; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; font-size: 0.88rem; }
     footer a:hover { color: var(--sand); }
     footer li { margin-bottom: 8px; }
-    .footer-divider { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 40px; padding: 20px 0; text-align: center; font-size: 0.8rem; letter-spacing: 1px; }
-    .footer-brand { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--sand); display: block; margin-bottom: 8px; }
+    .footer-divider { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 36px; padding: 18px 0; text-align: center; font-size: 0.78rem; letter-spacing: 1px; }
+    .footer-brand { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--sand); display: block; margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -179,6 +193,16 @@
       <a class="navbar-brand" href="index.html">
         <i class="fas fa-water me-2" style="color:var(--turq);"></i>Del<span>Valle</span>Tours
       </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="border-color:rgba(255,255,255,0.3);">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3 align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html#destinos">Destinos</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -199,70 +223,17 @@
   <div class="reserva-wrapper">
 
     <!-- Mensaje de éxito -->
-    <div id="mensajeExito" class="col-12">
-      <div style="background: linear-gradient(135deg, var(--teal), #005f73); color: #fff; border-radius: 20px; padding: 28px; text-align: center; animation: slideUp 0.4s ease both; margin-bottom: 20px;">
-        <i class="fas fa-check-circle" style="font-size:2.8rem; margin-bottom:12px; display:block; color:var(--sand);"></i>
-        <h5 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; margin-bottom:8px;">¡Reserva confirmada!</h5>
-        <p style="opacity:0.85; margin:0; font-size:0.85rem; letter-spacing:1px;">Recuerda que debes llegar a Santa Marta para que podamos brindarte el servicio. ¡Te esperamos! 🌴</p>
+    <div id="mensajeExito">
+      <div style="background:linear-gradient(135deg,var(--teal),#005f73);color:#fff;border-radius:20px;padding:28px;text-align:center;">
+        <i class="fas fa-check-circle" style="font-size:2.5rem;margin-bottom:12px;display:block;color:var(--sand);"></i>
+        <h5 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:8px;">¡Reserva confirmada!</h5>
+        <p style="opacity:0.85;margin:0;font-size:0.82rem;letter-spacing:1px;">Recuerda que debes llegar a Santa Marta para que podamos brindarte el servicio. ¡Te esperamos! 🌴</p>
       </div>
     </div>
 
-    <!-- FORMULARIO -->
+    <!-- TABS -->
     <div class="form-card">
-      <h2>Nueva reserva</h2>
-      <p class="subtitulo">Todos los campos son obligatorios</p>
-
-      <div id="destinoBadge" style="display:none;">
-        <span class="destino-badge"><i class="fas fa-map-marker-alt"></i><span id="destinoTexto"></span></span>
-      </div>
-
-      <form id="formReserva" novalidate>
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-user"></i> Nombre completo</label>
-          <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez"/>
-          <div class="error-msg" id="error-nombre">Por favor ingresa tu nombre.</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-map-marker-alt"></i> Destino</label>
-          <input type="text" id="destino" class="form-control" placeholder="Ej: Cabo San Juan"/>
-          <div class="error-msg" id="error-destino">Por favor ingresa el destino.</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico</label>
-          <input type="email" id="correo_cliente" class="form-control" placeholder="tucorreo@gmail.com"/>
-          <div class="error-msg" id="error-correo">Por favor ingresa un correo válido.</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-tag"></i> Valor del plan</label>
-          <input type="text" id="precio" class="form-control" placeholder="Se calcula automáticamente" readonly style="font-weight:700; color:var(--coral);"/>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-calendar-alt"></i> Fecha de viaje</label>
-          <input type="date" id="fecha" class="form-control"/>
-          <div class="error-msg" id="error-fecha">Por favor selecciona una fecha.</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label"><i class="fas fa-users"></i> Número de viajeros</label>
-          <input type="number" id="viajeros" class="form-control" placeholder="Ej: 4" min="1"/>
-          <div class="error-msg" id="error-viajeros">Por favor ingresa el número de viajeros.</div>
-        </div>
-
-        <button type="submit" class="btn-reservar-final">
-          <i class="fas fa-calendar-check me-2"></i>Confirmar reserva
-        </button>
-      </form>
-    </div>
-
-    <!-- TABLA CON PESTAÑAS -->
-    <div class="tabla-card">
-
-      <!-- Pestañas -->
-      <div style="display:flex; gap:8px; margin-bottom:24px;">
+      <div class="tabs-wrap">
         <button class="tab-btn active" id="tabNueva" onclick="cambiarTab('nueva')">
           <i class="fas fa-plus me-1"></i> Nueva reserva
         </button>
@@ -271,45 +242,85 @@
         </button>
       </div>
 
-      <!-- Panel: Historial -->
+      <!-- FORMULARIO -->
       <div id="panelNueva">
-        <h2>Mis reservas</h2>
-        <p class="subtitulo">Historial de viajes reservados</p>
-        <div style="overflow-x:auto;">
-          <table class="tabla-reservas">
-            <thead>
-              <tr>
-                <th><i class="fas fa-user me-1"></i> Nombre</th>
-                <th><i class="fas fa-map-marker-alt me-1"></i> Destino</th>
-                <th><i class="fas fa-calendar me-1"></i> Fecha</th>
-                <th><i class="fas fa-envelope me-1"></i> Correo</th>
-                <th><i class="fas fa-users me-1"></i> Viajeros</th>
-                <th><i class="fas fa-tag me-1"></i> Valor</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="tablaReservas"></tbody>
-          </table>
+        <h2>Nueva reserva</h2>
+        <p class="subtitulo">Todos los campos son obligatorios</p>
+
+        <div id="destinoBadge" style="display:none;">
+          <span class="destino-badge"><i class="fas fa-map-marker-alt"></i><span id="destinoTexto"></span></span>
         </div>
+
+        <form id="formReserva" novalidate>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user"></i> Nombre completo</label>
+            <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez"/>
+            <div class="error-msg" id="error-nombre">Por favor ingresa tu nombre.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-map-marker-alt"></i> Destino</label>
+            <select id="destino" class="form-control">
+              <option value="">Selecciona un destino...</option>
+              <option value="Cabo San Juan, Colombia" data-precio="150000">Cabo San Juan — $150.000 p/p</option>
+              <option value="Palomino-Guajira, Colombia" data-precio="110000">Palomino-Guajira — $110.000 p/p</option>
+              <option value="Bahia Concha, Colombia" data-precio="100000">Bahia Concha — $100.000 p/p</option>
+              <option value="Minca-Taganga, Colombia" data-precio="120000">Minca-Taganga — $120.000 p/p</option>
+              <option value="Cartagena-Baru, Colombia" data-precio="150000">Cartagena-Barú — $150.000 p/p</option>
+              <option value="Playa Blanca, Colombia" data-precio="134000">Playa Blanca — $134.000 p/p</option>
+              <option value="Remanso-Taganga, Colombia" data-precio="100000">Remanso-Taganga — $100.000 p/p</option>
+              <option value="Playa Cristal, Colombia" data-precio="150000">Playa Cristal — $150.000 p/p</option>
+              <option value="Buritaca, Colombia" data-precio="110000">Buritaca — $110.000 p/p</option>
+              <option value="Playa Blanca/Acuario, Colombia" data-precio="135000">Playa Blanca/Acuario — $135.000 p/p</option>
+              <option value="Chiva Rumbera, Santa Marta, Colombia" data-precio="20000">Chiva Rumbera — $20.000 p/p</option>
+            </select>
+            <div class="error-msg" id="error-destino">Por favor selecciona un destino.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico</label>
+            <input type="email" id="correo_cliente" class="form-control" placeholder="tucorreo@gmail.com"/>
+            <div class="error-msg" id="error-correo">Por favor ingresa un correo válido.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-tag"></i> Valor del plan</label>
+            <input type="text" id="precio" class="form-control" placeholder="Se calcula automáticamente" readonly style="font-weight:700;color:var(--coral);"/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-calendar-alt"></i> Fecha de viaje</label>
+            <input type="date" id="fecha" class="form-control"/>
+            <div class="error-msg" id="error-fecha">Por favor selecciona una fecha válida.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-users"></i> Número de viajeros</label>
+            <input type="number" id="viajeros" class="form-control" placeholder="Ej: 4" min="1" max="100"/>
+            <div class="error-msg" id="error-viajeros">El número de viajeros debe ser mayor a 0.</div>
+          </div>
+
+          <button type="submit" class="btn-reservar-final">
+            <i class="fas fa-calendar-check me-2"></i>Confirmar reserva
+          </button>
+        </form>
       </div>
 
-      <!-- Panel: Consulta por correo -->
+      <!-- CONSULTA -->
       <div id="panelConsulta" style="display:none;">
         <h2>Consultar reserva</h2>
         <p class="subtitulo">Ingresa tu correo para ver tus reservas</p>
 
-        <div style="display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap;">
+        <div class="consulta-input-wrap">
           <input type="email" id="correoConsulta" class="form-control"
-            placeholder="tucorreo@gmail.com"
-            style="max-width:320px; border-radius:12px; border:1.5px solid #e0e0e0; padding:12px 16px; font-family:'Josefin Sans',sans-serif; background:var(--cream);"/>
-          <button onclick="consultarPorCorreo()" style="background:linear-gradient(135deg,var(--teal),#005f73);color:#fff;border:none;border-radius:12px;padding:12px 24px;font-family:'Josefin Sans',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;">
+            placeholder="tucorreo@gmail.com"/>
+          <button class="btn-buscar" onclick="consultarPorCorreo()">
             <i class="fas fa-search me-1"></i> Buscar
           </button>
         </div>
 
         <div id="resultadoConsulta"></div>
       </div>
-
     </div>
 
   </div>
@@ -319,7 +330,7 @@
       <div class="row g-4 mb-4">
         <div class="col-md-4">
           <span class="footer-brand">DelValleTours</span>
-          <p style="font-size:0.88rem; line-height:1.7;">Tu agencia de confianza para turismo local en Santa Marta.</p>
+          <p style="font-size:0.85rem;line-height:1.7;">Tu agencia de confianza para turismo local en Santa Marta.</p>
         </div>
         <div class="col-md-2">
           <h5>Compañía</h5>
@@ -339,9 +350,9 @@
         </div>
         <div class="col-md-4">
           <h5>Contacto</h5>
-          <ul class="list-unstyled" style="font-size:0.9rem;">
-            <li style="margin-bottom:10px;"><i class="fas fa-phone me-2" style="color:var(--turq);"></i>+57 322 8498191</li>
-            <li style="margin-bottom:10px;"><i class="fas fa-envelope me-2" style="color:var(--turq);"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6105040d17000d0d04150e141312505521060c00080d4f020e0c">[email&#160;protected]</a></li>
+          <ul class="list-unstyled" style="font-size:0.88rem;">
+            <li style="margin-bottom:8px;"><i class="fas fa-phone me-2" style="color:var(--turq);"></i>+57 322 8498191</li>
+            <li style="margin-bottom:8px;"><i class="fas fa-envelope me-2" style="color:var(--turq);"></i>delvalletours14@gmail.com</li>
             <li><i class="fas fa-map-marker-alt me-2" style="color:var(--turq);"></i>Santa Marta, Magdalena</li>
           </ul>
         </div>
@@ -355,7 +366,7 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>emailjs.init("lXb7XcDR5sXbfdnTU");</script>
   <script type="module" src="reservas.js"></script>
