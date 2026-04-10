@@ -1,6 +1,6 @@
 // ── CONFIGURACIÓN FIREBASE ───────────────────────────────────
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCcf0MTynJlmAw-Ul_FlePm_oLyN1hC2ko",
@@ -15,4 +15,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-export { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where };
+export { db, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, where, updateDoc };
